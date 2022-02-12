@@ -22,5 +22,59 @@
         "@typescript-eslint",
         "import"
     ],
-    "rules": {}
+    "rules": {
+        "sort-imports": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "type",
+                    "builtin",
+                    "external",
+                    "internal",
+                    "unknown",
+                    "parent",
+                    "sibling",
+                    "index",
+                    "object"
+                ],
+                "newlines-between": "never",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        "import/newline-after-import": [
+            "error",
+            {
+                "count": 1
+            }
+        ],
+        "react/self-closing-comp": [
+            "error",
+            {
+                "component": true,
+                "html": true
+            }
+        ],
+        "react/function-component-definition": [
+            "error",
+            {
+                "namedComponents": "arrow-function"
+            }
+        ],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [
+            "error",
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ]
+    }
 }
