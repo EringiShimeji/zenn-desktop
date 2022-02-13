@@ -1,5 +1,9 @@
 import { defaultKeymap } from '@codemirror/commands';
-import { defaultHighlightStyle } from '@codemirror/highlight';
+import {
+  defaultHighlightStyle,
+  HighlightStyle,
+  tags,
+} from '@codemirror/highlight';
 import { history, historyKeymap } from '@codemirror/history';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { indentOnInput } from '@codemirror/language';
@@ -11,10 +15,14 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 
 const customTheme = EditorView.theme({
   '.cm-scroller': {
-    fontFamily: 'sans-serif ',
+    // fontFamily: 'sans-serif',
+    // 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace, "Segoe UI Emoji',
   },
   '&.cm-editor.cm-focused': { outline: 'none' },
 });
+const syntaxHighlighting = HighlightStyle.define([
+  { tag: tags.heading1, fontSize: '21px', fontWeight: '700' },
+]);
 
 type Props = {
   doc: string;
@@ -51,6 +59,7 @@ const useCodeMirror = <T extends Element>({
             onEditorChange && onEditorChange(update.state);
           }
         }),
+        syntaxHighlighting,
         customTheme,
       ],
     });

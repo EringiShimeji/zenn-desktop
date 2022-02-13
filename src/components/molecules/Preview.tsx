@@ -6,7 +6,16 @@ type Props = {
 };
 
 const Preview: VFC<Props> = ({ children }) => (
-  <Box marginRight="2">{children}</Box>
+  <Box
+    className="znc"
+    w="50%"
+    marginRight="2"
+    display="table-cell"
+    verticalAlign="top"
+    justifyContent="start"
+  >
+    {children}
+  </Box>
 );
 
 export default Preview;
