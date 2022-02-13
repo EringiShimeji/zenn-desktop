@@ -2,6 +2,7 @@ import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
+import TsconfigPathsImportPlugin from 'tsconfig-paths-webpack-plugin';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -14,6 +15,11 @@ const common: Configuration = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
+    plugins: [
+      new TsconfigPathsImportPlugin({
+        configFile: path.resolve(__dirname, 'tsconfig.main.json'),
+      }),
+    ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

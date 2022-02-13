@@ -17,7 +17,9 @@ if (isDev) {
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
-    webPreferences: { preload: path.resolve(__dirname, 'preload.js') },
+    webPreferences: {
+      preload: path.resolve(__dirname, 'preload.js'),
+    },
   });
 
   mainWindow.loadFile('dist/index.html');

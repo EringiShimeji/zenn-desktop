@@ -1,15 +1,15 @@
-import React, { VFC } from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-
-const App: VFC = () => (
-  <div>
-    <p>hello</p>
-  </div>
-);
+import App from 'containers/pages/App';
+import theme from './theme';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

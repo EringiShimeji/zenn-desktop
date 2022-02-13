@@ -1,0 +1,7 @@
+*:focus-visible {
+  outline: none;
+}
+
+body {
+  font-family: 'メイリオ', 'Meiryo', sans-serif;
+}
