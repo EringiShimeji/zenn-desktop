@@ -1,6 +1,6 @@
 import htmlReactParser from 'html-react-parser';
 import { useEffect, useState, VFC } from 'react';
-import Preview from 'components/molecules/Preview';
+import Preview from 'src/components/molecules/Preview';
 
 type Props = {
   doc: string;

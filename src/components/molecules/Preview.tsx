@@ -13,6 +13,8 @@ const Preview: VFC<Props> = ({ children }) => (
     display="table-cell"
     verticalAlign="top"
     justifyContent="start"
+    fontFamily="Meiryo"
+    sx={{ 'h1, h2, h3, h4, h5, h6': { fontWeight: '700' } }}
   >
     {children}
   </Box>

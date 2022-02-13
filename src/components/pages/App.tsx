@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import Editor from 'containers/organisms/Editor';
+import Editor from 'src/containers/organisms/Editor';
 
 type Props = {
   doc: string;

@@ -12,7 +12,7 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "skipLibCheck": true,
-    "baseUrl": "./src"
+    "baseUrl": "./"
   },
   "ts-node": {
     "compilerOptions": {

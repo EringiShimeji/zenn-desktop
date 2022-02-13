@@ -1,7 +1,7 @@
 import { EditorState } from '@codemirror/state';
-import { VFC } from 'react';
-import Editor from 'components/organisms/Editor';
-import useCodeMirror from 'hooks/use-codemirror';
+import { useEffect, VFC } from 'react';
+import Editor from 'src/components/organisms/Editor';
+import useCodeMirror from 'src/hooks/use-codemirror';
 
 type Props = {
   doc: string;
@@ -15,6 +15,8 @@ const EnhancedEditor: VFC<Props> = ({ doc, onChange }) => {
     doc,
     onEditorChange: handleEditorChange,
   });
+
+  useEffect(() => {});
 
   return <Editor containerRef={containerRef} doc={doc} />;
 };

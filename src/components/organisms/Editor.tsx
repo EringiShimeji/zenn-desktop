@@ -1,6 +1,6 @@
 import { Flex, Box } from '@chakra-ui/react';
 import { RefObject, VFC } from 'react';
-import Preview from 'containers/molecules/Preview';
+import Preview from 'src/containers/molecules/Preview';
 
 type Props = {
   doc: string;

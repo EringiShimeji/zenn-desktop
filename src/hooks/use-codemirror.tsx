@@ -15,13 +15,52 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 
 const customTheme = EditorView.theme({
   '.cm-scroller': {
-    // fontFamily: 'sans-serif',
-    // 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace, "Segoe UI Emoji',
+    fontFamily: 'Consolas, "MS Gothic"',
   },
   '&.cm-editor.cm-focused': { outline: 'none' },
 });
 const syntaxHighlighting = HighlightStyle.define([
-  { tag: tags.heading1, fontSize: '21px', fontWeight: '700' },
+  {
+    tag: tags.heading1,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+    fontSize: '1.4em',
+  },
+  {
+    tag: tags.heading2,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+    fontSize: '1.3em',
+  },
+  {
+    tag: tags.heading3,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+    fontSize: '1.2em',
+  },
+  {
+    tag: tags.heading4,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+    fontSize: '1.1em',
+  },
+  {
+    tag: tags.heading5,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+  },
+  {
+    tag: tags.heading6,
+    marginTop: '1em',
+    lineHeight: '1.5',
+    fontWeight: '700',
+    fontSize: '.9em',
+  },
 ]);
 
 type Props = {
@@ -53,14 +92,14 @@ const useCodeMirror = <T extends Element>({
           codeLanguages: languages,
           addKeymap: true,
         }),
+        customTheme,
+        syntaxHighlighting,
         EditorView.lineWrapping,
         EditorView.updateListener.of((update) => {
           if (update.changes) {
             onEditorChange && onEditorChange(update.state);
           }
         }),
-        syntaxHighlighting,
-        customTheme,
       ],
     });
 
