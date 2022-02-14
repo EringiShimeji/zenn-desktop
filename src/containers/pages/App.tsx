@@ -8,7 +8,7 @@ const EnhancedApp: VFC = () => {
   };
 
   useEffect(() => {
-    window.fileIO.saveMarkdownData(doc);
+    window.store.setMarkdownData(doc);
   }, [doc]);
 
   return <Editor doc={doc} onChange={handleEditorChange} />;

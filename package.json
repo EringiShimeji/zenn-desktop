@@ -9,7 +9,9 @@
     "dev:tsc": "tsc -w -p tsconfig.main.json",
     "dev:webpack": "cross-env NODE_ENV=\"development\" webpack --progress     ",
     "dev:electron": "wait-on ./dist/index.html && cross-env NODE_ENV=\"development\" electron .",
-    "build": "cross-env NODE_ENV=\"production\" webpack --progress"
+    "build": "cross-env NODE_ENV=\"production\" webpack --progress",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "eringi_shimeji <eringi.shimeji.5296@gmail.com> (https://github.com/EringiShimeji)",
@@ -58,10 +60,13 @@
     "@emotion/styled": "^11.6.0",
     "electron": "^17.0.0",
     "electron-reload": "^2.0.0-alpha.1",
+    "electron-store": "^8.0.1",
     "framer-motion": "^6.2.6",
     "html-react-parser": "^1.4.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "simple-git": "^3.2.4",
     "zenn-content-css": "^0.1.106",
     "zenn-markdown-html": "^0.1.106"
   }

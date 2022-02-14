@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { writeFile, mkdir, readdir, rm } from 'fs/promises';
 import path from 'path';
 import {
   app,
@@ -11,11 +11,15 @@ import {
   dialog,
 } from 'electron';
 import electronReload from 'electron-reload';
+import ElectronStore from 'electron-store';
 
 const isDev = process.env.NODE_ENV === 'development';
-const electronState = {
-  markdownData: '',
-};
+const store = new ElectronStore({
+  defaults: {
+    markdownData: '',
+    currentFile: '',
+  },
+});
 
 if (isDev) {
   electronReload(__dirname, {
@@ -62,10 +66,10 @@ const createWindow = () => {
   mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.on('close', () => app.quit());
 
-  ipcMain.on('save-markdown-data', (event, data) => {
-    electronState.markdownData = data;
+  ipcMain.on('set-markdown-data', (event, data: string) => {
+    store.set('markdownData', data);
 
-    return electronState.markdownData;
+    return store.get('markdownData');
   });
 };
 
@@ -75,16 +79,16 @@ const createMenu = () => {
       label: 'ファイル',
       submenu: [
         {
-          label: '名前を付けて保存',
+          label: '新規ワークスペース',
           click: async (event, focusedWindow) => {
             if (!focusedWindow) return;
 
-            const filePath = await dialog
+            const dirPath = await dialog
               .showOpenDialog(focusedWindow, {
-                properties: ['openFile'],
-                buttonLabel: '保存',
-                title: '名前を付けて保存',
-                filters: [{ name: 'Markdown テキスト', extensions: ['md'] }],
+                properties: ['openDirectory'],
+                buttonLabel: '開く',
+                title: '新規ワークスペース',
+                message: '選択したフォルダをワークスペースとして初期化します',
               })
               .then((result) => {
                 if (result.canceled) return null;
@@ -92,9 +96,51 @@ const createMenu = () => {
                 return result.filePaths[0];
               });
 
+            if (!dirPath) return;
+
+            const existingFiles = await readdir(dirPath);
+
+            if (existingFiles.length) {
+              const canDeleteExistingFiles = await dialog
+                .showMessageBox(focusedWindow, {
+                  title: '警告',
+                  message:
+                    '初期化を実行すると既存のファイルは削除されます。この操作は取り消せません。',
+                  buttons: ['続ける', 'キャンセル'],
+                  cancelId: 1,
+                })
+                .then((result) => result.response === 0);
+
+              if (!canDeleteExistingFiles) return;
+            }
+
+            await rm(`${dirPath}`, { recursive: true, force: true });
+            await mkdir(dirPath);
+            await mkdir(`${dirPath}/articles`);
+            await mkdir(`${dirPath}/books`);
+          },
+        },
+        {
+          label: '名前を付けて保存',
+          click: async (event, focusedWindow) => {
+            if (!focusedWindow) return;
+
+            const filePath = await dialog
+              .showSaveDialog(focusedWindow, {
+                buttonLabel: '保存',
+                title: '名前を付けて保存',
+                filters: [{ name: 'Markdown テキスト', extensions: ['md'] }],
+              })
+              .then((result) => {
+                if (result.canceled) return null;
+
+                return result.filePath;
+              });
+
             if (!filePath) return;
 
-            writeFileSync(filePath, electronState.markdownData);
+            await writeFile(filePath, store.get('markdownData'));
+            store.set('currentFile', filePath);
           },
         },
       ],

@@ -1,7 +1,7 @@
 declare global {
   interface Window {
     zenn: ZennAPI;
-    fileIO: FileIoAPI;
+    store: StoreAPI;
   }
 }
 
@@ -9,6 +9,6 @@ export interface ZennAPI {
   markdownToHtml: (doc: string) => string;
 }
 
-export interface FileIoAPI {
-  saveMarkdownData: (data: string) => void;
+export interface StoreAPI {
+  setMarkdownData: (data: string) => void;
 }
